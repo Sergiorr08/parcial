@@ -4,8 +4,8 @@ import csv
 from bs4 import BeautifulSoup
 from datetime import datetime
 
-S3_BUCKET_INPUT = os.getenv("S3_BUCKET_INPUT", "landing-casas-xxx")
-S3_BUCKET_OUTPUT = os.getenv("S3_BUCKET_OUTPUT", "casas-final-xxx")
+S3_BUCKET_INPUT = os.getenv("S3_BUCKET_INPUT", "landing-casas-804")
+S3_BUCKET_OUTPUT = os.getenv("S3_BUCKET_OUTPUT", "casas-final-804")
 s3_client = boto3.client("s3")
 
 def extract_data_from_html(html_content):
@@ -42,3 +42,11 @@ def lambda_handler(event, context):
         key = record["s3"]["object"]["key"]
         process_html_file(key)
     return {"statusCode": 200, "body": "Procesamiento completado"}
+
+def save_to_csv(data, key):
+    csv_buffer = "FechaDescarga,Barrio,Valor,NumHabitaciones,NumBanos,mts2\n"
+    for row in data:
+        csv_buffer += ",".join(row) + "\n"
+
+    s3_client.put_object(Bucket=S3_BUCKET_OUTPUT, Key=key, Body=csv_buffer)
+    print(f"CSV guardado en: {key}")

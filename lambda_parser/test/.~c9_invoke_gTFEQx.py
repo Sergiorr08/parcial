@@ -1,8 +1,6 @@
 import pytest
 from lambda_parser.main import extract_data_from_html, process_html_file
 from unittest.mock import patch, MagicMock
-from lambda_parser.main import S3_BUCKET_INPUT
-
 
 # HTML de prueba
 HTML_SAMPLE = """
@@ -41,7 +39,7 @@ def test_process_html_file(mock_s3_client):
     process_html_file("landing-casas-804/test.html")
 
     # Verificar que get_object fue llamado con los argumentos correctos
-    mock_s3_client.get_object.assert_called_once_with(Bucket=S3_BUCKET_INPUT, Key="landing-casas-804/test.html")
+    mock_s3_client.get_object.assert_called_once_with(Bucket="landing-casas-xxx", Key="landing-casas-804/test.html")
 
     # Verificar que put_object fue llamado correctamente
     mock_s3_client.put_object.assert_called_once()
