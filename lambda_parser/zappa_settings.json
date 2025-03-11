@@ -1,0 +1,21 @@
+{
+    "dev": {
+        "app_function": "main.lambda_handler",
+        "aws_region": "us-east-1",
+        "exclude": [
+            "boto3",
+            "dateutil",
+            "botocore",
+            "s3transfer",
+            "concurrent"
+        ],
+        "profile_name": "default",
+        "project_name": "lambda-parser",
+        "runtime": "python3.10",
+        "s3_bucket": "zappa-t5v96twdy",
+        "keep_warm": false,
+        "apigateway_enabled": false,
+        "manage_roles": false,
+        "role_name": "LabRole"
+    }
+}
