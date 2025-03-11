@@ -1,4 +1,3 @@
-import pytest
 from unittest.mock import patch
 from lambda_scraper.main import download_html
 
