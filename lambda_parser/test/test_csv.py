@@ -7,10 +7,19 @@ S3_BUCKET_OUTPUT = "test-bucket"
 
 @pytest.fixture
 def s3_mock():
-    with mock_aws():  # <--- Cambia mock_s3() por mock_aws()
+    with mock_aws():  # Activa el mock de AWS
+        # Crea el cliente de S3 dentro del mock
         s3 = boto3.client("s3", region_name="us-east-1")
         s3.create_bucket(Bucket=S3_BUCKET_OUTPUT)
-        yield s3
+        
+        # Configura credenciales ficticias para evitar el error
+        boto3.setup_default_session(
+            aws_access_key_id="test",
+            aws_secret_access_key="test",
+            aws_session_token="test",
+        )
+        
+        yield s3  # Retorna el cliente S3 mockeado
 
 def test_save_to_csv(s3_mock):
     test_data = [
