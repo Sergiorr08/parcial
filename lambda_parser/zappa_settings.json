@@ -16,6 +16,15 @@
         "keep_warm": false,
         "apigateway_enabled": false,
         "manage_roles": false,
-        "role_name": "LabRole"
+        "role_name": "LabRole",
+        "events": [
+            {
+                "function": "main.lambda_handler",
+                "event_source": {
+                    "arn": "arn:aws:s3:::landing-casas-804",
+                    "events": ["s3:ObjectCreated:*"]
+                }
+            }
+        ]
     }
 }
