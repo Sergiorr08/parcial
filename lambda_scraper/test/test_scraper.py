@@ -2,6 +2,7 @@ import pytest
 from unittest.mock import patch
 from lambda_scraper.main import download_html
 
+
 @patch("lambda_scraper.main.requests.get")
 @patch("lambda_scraper.main.s3_client.put_object")  # ⬅️ Simula la subida a S3
 def test_download_html(mock_put_object, mock_get):

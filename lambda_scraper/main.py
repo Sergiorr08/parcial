@@ -7,7 +7,8 @@ S3_BUCKET = os.getenv("S3_BUCKET", "landing-casas-804")
 s3_client = boto3.client("s3")
 
 
-def download_html(base_url = "https://casas.mitula.com.co/apartaestudio/bogota/?page={}"):
+def download_html(
+        base_url="https://casas.mitula.com.co/apartaestudio/bogota/?page={}"):
     today = datetime.today().strftime('%Y-%m-%d')
     downloaded_html = []  # ⬅️ Lista para almacenar los HTML descargados
 
@@ -27,8 +28,8 @@ def download_html(base_url = "https://casas.mitula.com.co/apartaestudio/bogota/?
             print(f"Error descargando {url}")
 
     return downloaded_html  # ⬅️ Devolver la lista de HTML descargados
-        else:
-            print(f"Error descargando {url}")
+    else:
+        print(f"Error descargando {url}")
 
     return downloaded_html  # ⬅️ Devolver la lista de HTML descargados
 
