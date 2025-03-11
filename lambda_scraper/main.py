@@ -1,14 +1,14 @@
 import os
 import requests
 import boto3
-from datetime import datetime
+from datetime import datetime, timezone
 
 S3_BUCKET = os.getenv("S3_BUCKET", "landing-casas-804")
 s3_client = boto3.client("s3")
 
 
 def download_html(base_url="https://casas.mitula.com.co/apartaestudio/bogota/?page={}"):
-    today = datetime.today().strftime('%Y-%m-%d')
+    today = datetime.now(timezone.utc).strftime('%Y-%m-%d')
     downloaded_html = []  # ⬅️ Lista para almacenar los HTML descargados
 
     for page in range(1, 11):  # Descarga las primeras 10 páginas
