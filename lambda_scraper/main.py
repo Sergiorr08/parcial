@@ -7,12 +7,12 @@ S3_BUCKET = os.getenv("S3_BUCKET", "landing-casas-804")
 s3_client = boto3.client("s3")
 
 
-def download_html(base_url="https://casas.mitula.com.co/apartaestudio/bogota/?page={}"):
+def download_html(base_url="https://casas.mitula.com.co/find?operationType=sell&geoId=mitula-CO-poblacion-0000014156&text=Bogot%C3%A1%2C++%28Cundinamarca%29", pages=10):
     today = datetime.now(timezone.utc).strftime('%Y-%m-%d')
-    downloaded_html = []  # ⬅️ Lista para almacenar los HTML descargados
+    downloaded_html = []
 
-    for page in range(1, 11):  # Descarga las primeras 10 páginas
-        url = base_url.format(page)
+    for page in range(1, pages + 1):
+        url = f"{base_url}&page={page}"  # Agregamos el número de página a la URL
         response = requests.get(url)
 
         if response.status_code == 200:
@@ -23,12 +23,12 @@ def download_html(base_url="https://casas.mitula.com.co/apartaestudio/bogota/?pa
                 Key=s3_path,
                 Body=response.text
             )
-            downloaded_html.append(response.text)  # ⬅️ Agregar HTML a la lista
+            downloaded_html.append(response.text)
             print(f"Guardado: {s3_path}")
         else:
-            print(f"Error descargando {url}")  # ⬅️ Ya no está duplicado
+            print(f"Error descargando {url}")
 
-    return downloaded_html  # ⬅️ Solo un return al final
+    return downloaded_html
 
 
 def lambda_handler(event, context):
