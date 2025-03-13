@@ -13,7 +13,7 @@ def download_html(base_url="https://casas.mitula.com.co/find?operationType=sell&
 
     for page in range(1, pages + 1):
         url = f"{base_url}&page={page}"  # Agregamos el número de página a la URL
-        response = requests.get(url, headers={"User-Agent":"Mozzila/5.0"})
+        response = requests.get(url, headers={"User-Agent":"Mozilla/5.0"})
 
         if response.status_code == 200:
             file_name = f"{today}_page_{page}.html"

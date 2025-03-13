@@ -20,7 +20,7 @@
         "events": [
             {
                 "function": "main.lambda_handler",
-                "expression": "cron(38 15 * * ? *)"
+                "expression": "cron(00 4 * * ? *)"
             }
         ]
     }
